@@ -11,8 +11,10 @@ describe Resque::Multifail do
   let(:queue)      { 'queue' }
   let(:payload)    { { 'class' => ExampleJob, 'args' => [2, 3] } }
   let(:payload2)   { { 'class' => ExampleJob, 'args' => [3, 4] } }
+  let(:payload3)   { { 'class' => Object, 'args' => [3, 4] } }
   let(:backend)    { Resque::Failure::Multifail.new(exception, worker, queue, payload) }
   let(:backend2)   { Resque::Failure::Multifail.new(exception, worker, queue, payload2) }
+  let(:backend3)   { Resque::Failure::Multifail.new(exception, worker, queue, payload3) }
 
   it 'should comply with the plugin spec' do
     Resque::Plugin.lint(Resque::Plugins::Multifail)
@@ -89,5 +91,13 @@ describe Resque::Multifail do
 
     expect(Resque::Failure::Multifail.job_failures(payload)).to eq 0
     expect(Resque::Failure::Multifail.job_failures(payload2)).to eq 1
+  end
+
+  it 'should fail immediately if @allow_failures is not set' do
+    expect(Resque::Failure::Multifail.count).to eq 0
+
+    backend3.save
+
+    expect(Resque::Failure::Multifail.count).to eq 1
   end
 end

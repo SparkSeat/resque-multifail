@@ -45,7 +45,7 @@ module Resque
       private
 
       def allowed_failures
-        payload['class'].instance_variable_get('@allow_failures')
+        payload['class'].instance_variable_get('@allow_failures') || 0
       end
     end
   end
