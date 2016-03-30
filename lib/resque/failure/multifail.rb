@@ -16,7 +16,7 @@ module Resque
         Multifail.job_failures(payload)
       end
 
-      def self.clear
+      def self.clear(*args)
         Resque.redis.smembers(:multifail_jobs).each do |hash_key|
           Resque.redis.del(hash_key)
         end
