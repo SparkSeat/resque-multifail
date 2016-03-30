@@ -13,7 +13,7 @@ This gem allows us to specify that.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'resque-multifail'
+gem 'resque-multifail', require: 'resque/multifail'
 ```
 
 And then execute:
@@ -23,6 +23,12 @@ And then execute:
 ## Usage
 
 ```
+# Resque Config
+Resque::Failure.backend = Resque::Failure::Multifail
+```
+
+```
+# example_job.rb
 class ExampleJob
   extend Resque::Plugins::Multifail
 

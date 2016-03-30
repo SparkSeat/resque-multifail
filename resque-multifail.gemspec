@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Hayden Ball']
   spec.email         = ['hayden@sparkseat.com']
 
-  spec.summary       = 'TODO: Write a short summary, because Rubygems requires one.'
+  spec.summary       = 'Allow Resque jobs to fail occasionally'
   spec.homepage      = 'https://github.com/sparkseat/resque-multifail'
   spec.license       = 'MIT'
 
