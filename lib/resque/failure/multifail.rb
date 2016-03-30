@@ -5,6 +5,8 @@ module Resque
         Resque.redis.sadd(:multifail_jobs, hash_key)
         Resque.redis.hset(hash_key, :failures, job_failures + 1)
 
+        Resque::Logging.warn("#{hash_key} has now failed #{job_failures} times")
+
         super if job_failures > allowed_failures
       end
 
